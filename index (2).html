@@ -1,0 +1,878 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>Maharani by Rungta's — Pure Silver Heritage</title>
+  <meta name="description" content="India's premier pure silver atelier. Handcrafted silver artefacts, luxury gifting, home décor, and sacred pooja articles for the discerning collector." />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+
+  <!-- Tailwind -->
+  <script src="https://cdn.tailwindcss.com"></script>
+
+  <!-- Lucide Icons -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/lucide/0.383.0/umd/lucide.min.js"></script>
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            charcoal:   '#0D0D0D',
+            platinum:   '#E5E8EB',
+            champagne:  '#D4AF37',
+            champagneL: '#EDD97A',
+            offwhite:   '#F7F6F3',
+            silver:     '#C0C4CB',
+            muted:      '#8A8D94',
+          },
+          fontFamily: {
+            display: ['Cinzel', 'serif'],
+            body:    ['Plus Jakarta Sans', 'sans-serif'],
+          },
+          letterSpacing: {
+            widest2: '0.25em',
+            widest3: '0.35em',
+          },
+        }
+      }
+    }
+  </script>
+
+  <style>
+    :root {
+      --champagne: #D4AF37;
+      --charcoal:  #0D0D0D;
+      --platinum:  #E5E8EB;
+      --offwhite:  #F7F6F3;
+      padding-top: env(safe-area-inset-top, 0px);
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
+    html { box-sizing: border-box; }
+    *, *::before, *::after { box-sizing: inherit; }
+
+    /* ── Typography helpers ── */
+    .font-display { font-family: 'Cinzel', serif; }
+    .font-body    { font-family: 'Plus Jakarta Sans', sans-serif; }
+
+    /* ── Announcement bar gradient ── */
+    .announce-bar {
+      background: linear-gradient(90deg, #0D0D0D 0%, #1a1a1a 50%, #0D0D0D 100%);
+    }
+
+    /* ── Nav glass ── */
+    .nav-glass {
+      background: rgba(13, 13, 13, 0.85);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      border-bottom: 1px solid rgba(212, 175, 55, 0.12);
+    }
+
+    /* ── Hero ── */
+    .hero-bg {
+      background:
+        linear-gradient(to bottom, rgba(13,13,13,0.62) 0%, rgba(13,13,13,0.30) 50%, rgba(13,13,13,0.75) 100%),
+        url('images/hero-banner.jpg') center center / cover no-repeat;
+      min-height: 100svh;
+    }
+
+    /* ── Category cards ── */
+    .cat-card img { transition: transform 0.65s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+    .cat-card:hover img { transform: scale(1.06); }
+
+    /* ── Product cards ── */
+    .product-card img { transition: transform 0.55s cubic-bezier(0.25, 0.46, 0.45, 0.94); }
+    .product-card:hover img { transform: scale(1.05); }
+
+    /* ── Gold shimmer line ── */
+    .gold-rule {
+      height: 1px;
+      background: linear-gradient(90deg, transparent, #D4AF37 30%, #EDD97A 50%, #D4AF37 70%, transparent);
+    }
+
+    /* ── Badge glass ── */
+    .badge-glass {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid rgba(212, 175, 55, 0.18);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+    }
+
+    /* ── Consultation banner ── */
+    .consult-bg {
+      background:
+        linear-gradient(135deg, rgba(13,13,13,0.93) 0%, rgba(30,25,10,0.91) 100%),
+        url('images/consultation-banner.jpg') center / cover no-repeat;
+    }
+
+    /* ── WhatsApp float ── */
+    .wa-float {
+      position: fixed;
+      bottom: 28px;
+      right: 24px;
+      z-index: 9999;
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: #25D366;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 24px rgba(37,211,102,0.35);
+      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    }
+    .wa-float:hover { transform: scale(1.08); box-shadow: 0 8px 32px rgba(37,211,102,0.5); }
+
+    /* ── Scroll reveal ── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s ease, transform 0.7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ── Mobile menu ── */
+    #mobile-menu {
+      transition: max-height 0.35s ease, opacity 0.3s ease;
+      max-height: 0;
+      overflow: hidden;
+      opacity: 0;
+    }
+    #mobile-menu.open { max-height: 340px; opacity: 1; }
+
+    /* ── Product badge ── */
+    .prod-badge {
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+    }
+
+    /* ── Marquee ── */
+    .marquee-track {
+      display: flex;
+      width: max-content;
+      animation: marquee 28s linear infinite;
+    }
+    @keyframes marquee {
+      0%   { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+    .marquee-wrap { overflow: hidden; }
+    .marquee-wrap:hover .marquee-track { animation-play-state: paused; }
+
+    /* ── Smooth scroll ── */
+    html { scroll-behavior: smooth; }
+
+    /* Reduce motion */
+    @media (prefers-reduced-motion: reduce) {
+      .reveal { opacity: 1; transform: none; transition: none; }
+      .cat-card img, .product-card img { transition: none; }
+      .marquee-track { animation: none; }
+    }
+  </style>
+</head>
+
+<body class="bg-charcoal font-body text-platinum antialiased">
+
+<!-- ════════════════════════════════════════
+     ANNOUNCEMENT BAR
+════════════════════════════════════════ -->
+<div class="announce-bar py-2.5 px-4 text-center overflow-hidden">
+  <div class="marquee-wrap">
+    <div class="marquee-track">
+      <!-- two copies for seamless loop -->
+      <span class="inline-flex items-center gap-8 text-xs tracking-widest2 text-champagne font-display pr-8">
+        <span>✦ Pure Silver Certified</span>
+        <span class="text-muted">|</span>
+        <span>✦ 100% Hallmarked BIS 999</span>
+        <span class="text-muted">|</span>
+        <span>✦ Worldwide Insured Shipping</span>
+        <span class="text-muted">|</span>
+        <span>✦ Custom Gifting &amp; Corporate Orders</span>
+        <span class="text-muted">|</span>
+        <span>✦ Private Consultation Available</span>
+        <span class="text-muted pl-8">|</span>
+      </span>
+      <span class="inline-flex items-center gap-8 text-xs tracking-widest2 text-champagne font-display pr-8">
+        <span>✦ Pure Silver Certified</span>
+        <span class="text-muted">|</span>
+        <span>✦ 100% Hallmarked BIS 999</span>
+        <span class="text-muted">|</span>
+        <span>✦ Worldwide Insured Shipping</span>
+        <span class="text-muted">|</span>
+        <span>✦ Custom Gifting &amp; Corporate Orders</span>
+        <span class="text-muted">|</span>
+        <span>✦ Private Consultation Available</span>
+        <span class="text-muted pl-8">|</span>
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     NAVIGATION
+════════════════════════════════════════ -->
+<header id="nav" class="nav-glass sticky top-0 z-50">
+  <div class="max-w-7xl mx-auto px-5 md:px-10 flex items-center justify-between h-16 md:h-18">
+
+    <!-- Logo -->
+    <a href="#" class="flex flex-col leading-none">
+      <span class="font-display text-xl md:text-2xl tracking-widest2 text-platinum">MAHARANI</span>
+      <span class="text-[9px] tracking-widest3 text-champagne font-body uppercase mt-0.5">by Rungta's</span>
+    </a>
+
+    <!-- Desktop nav -->
+    <nav class="hidden md:flex items-center gap-9">
+      <a href="#categories" class="text-xs tracking-widest text-silver hover:text-champagne transition-colors duration-300 font-display uppercase">Collections</a>
+      <a href="#trust"      class="text-xs tracking-widest text-silver hover:text-champagne transition-colors duration-300 font-display uppercase">Legacy</a>
+      <a href="#consult"    class="text-xs tracking-widest text-silver hover:text-champagne transition-colors duration-300 font-display uppercase">Consultation</a>
+    </nav>
+
+    <!-- Desktop CTA -->
+    <a href="https://wa.me/916291192742?text=Hello%2C%20I%27d%20like%20to%20inquire%20about%20your%20silver%20collections."
+       target="_blank" rel="noopener"
+       class="hidden md:inline-flex items-center gap-2 border border-champagne text-champagne font-body text-xs tracking-widest uppercase px-5 py-2.5 hover:bg-champagne hover:text-charcoal transition-all duration-300">
+      <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+      WhatsApp Inquiry
+    </a>
+
+    <!-- Mobile hamburger -->
+    <button id="menu-btn" class="md:hidden text-silver hover:text-champagne transition-colors" aria-label="Menu">
+      <i data-lucide="menu" class="w-6 h-6" id="menu-icon"></i>
+    </button>
+  </div>
+
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="md:hidden bg-charcoal border-t border-champagne/10">
+    <div class="px-6 py-5 flex flex-col gap-5">
+      <a href="#categories" class="text-sm tracking-widest text-silver font-display uppercase" onclick="closeMobile()">Collections</a>
+      <a href="#trust"      class="text-sm tracking-widest text-silver font-display uppercase" onclick="closeMobile()">Legacy</a>
+      <a href="#consult"    class="text-sm tracking-widest text-silver font-display uppercase" onclick="closeMobile()">Consultation</a>
+      <div class="gold-rule my-1"></div>
+      <a href="https://wa.me/916291192742?text=Hello%2C%20I%27d%20like%20to%20inquire%20about%20your%20silver%20collections."
+         target="_blank" rel="noopener"
+         class="inline-flex items-center gap-2 text-champagne text-xs tracking-widest uppercase font-body">
+        <i data-lucide="message-circle" class="w-4 h-4"></i>
+        WhatsApp Inquiry
+      </a>
+    </div>
+  </div>
+</header>
+
+<!-- ════════════════════════════════════════
+     HERO
+════════════════════════════════════════ -->
+<section class="hero-bg flex items-center justify-center relative">
+
+  <!-- Decorative corner lines -->
+  <div class="absolute top-12 left-8 md:left-16 w-16 h-16 border-t border-l border-champagne/30"></div>
+  <div class="absolute top-12 right-8 md:right-16 w-16 h-16 border-t border-r border-champagne/30"></div>
+  <div class="absolute bottom-20 left-8 md:left-16 w-16 h-16 border-b border-l border-champagne/30"></div>
+  <div class="absolute bottom-20 right-8 md:right-16 w-16 h-16 border-b border-r border-champagne/30"></div>
+
+  <div class="text-center px-6 md:px-12 max-w-4xl mx-auto py-28 md:py-36">
+    <!-- Eyebrow -->
+    <p class="font-display text-[10px] md:text-xs tracking-widest3 text-champagne uppercase mb-8">
+      India's Foremost Pure Silver Atelier
+    </p>
+
+    <!-- Headline -->
+    <h1 class="font-display text-4xl sm:text-5xl md:text-7xl text-platinum leading-tight md:leading-[1.08] mb-6">
+      Timeless Pure<br/>
+      <em class="not-italic text-champagne">Silver Heritage</em>
+    </h1>
+
+    <!-- Gold divider -->
+    <div class="gold-rule w-24 mx-auto my-8"></div>
+
+    <!-- Sub-copy -->
+    <p class="font-body font-light text-silver text-sm md:text-base leading-relaxed max-w-xl mx-auto mb-12">
+      Every piece we craft carries the weight of centuries — hallmarked 999 pure silver,
+      shaped by master artisans, destined for those who recognise the irreplaceable.
+    </p>
+
+    <!-- CTAs -->
+    <div class="flex flex-col sm:flex-row gap-4 justify-center items-center">
+      <a href="#categories"
+         class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 bg-champagne text-charcoal font-display text-xs tracking-widest uppercase px-8 py-4 hover:bg-champagneL transition-colors duration-300">
+        <i data-lucide="sparkles" class="w-4 h-4"></i>
+        Explore Collection
+      </a>
+      <a href="#consult"
+         class="w-full sm:w-auto inline-flex items-center justify-center gap-2.5 border border-platinum/40 text-platinum font-display text-xs tracking-widest uppercase px-8 py-4 hover:border-champagne hover:text-champagne transition-all duration-300">
+        <i data-lucide="video" class="w-4 h-4"></i>
+        Book Private Consultation
+      </a>
+    </div>
+  </div>
+
+  <!-- Scroll hint -->
+  <div class="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50">
+    <span class="font-body text-[9px] tracking-widest2 text-silver uppercase">Scroll</span>
+    <i data-lucide="chevron-down" class="w-4 h-4 text-silver animate-bounce"></i>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     CURATED CATEGORIES
+════════════════════════════════════════ -->
+<section id="categories" class="bg-charcoal py-20 md:py-28">
+  <div class="max-w-7xl mx-auto px-5 md:px-10">
+
+    <!-- Section header -->
+    <div class="text-center mb-14 reveal">
+      <p class="font-display text-[10px] tracking-widest3 text-champagne uppercase mb-4">Curated for the Discerning</p>
+      <h2 class="font-display text-3xl md:text-4xl text-platinum">Our Collections</h2>
+      <div class="gold-rule w-16 mx-auto mt-6"></div>
+    </div>
+
+    <!-- Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+
+      <!-- Card 1 -->
+      <div class="cat-card group cursor-pointer reveal">
+        <div class="overflow-hidden relative">
+          <img src="images/cat-pooja.jpg"
+               alt="Antique Pooja Articles"
+               class="w-full h-72 object-cover" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-5">
+            <p class="font-display text-[9px] tracking-widest2 text-champagne uppercase mb-1">Sacred</p>
+            <h3 class="font-display text-base text-platinum leading-snug">Antique Pooja<br/>Articles</h3>
+          </div>
+        </div>
+        <div class="border-t border-champagne/20 pt-4 mt-0">
+          <p class="text-xs text-muted font-body leading-relaxed">Diyas, kalash, thalis &amp; temple sets — each consecrated in craft.</p>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="cat-card group cursor-pointer reveal">
+        <div class="overflow-hidden relative">
+          <img src="images/cat-artefacts.jpg"
+               alt="Pure Silver Artefacts"
+               class="w-full h-72 object-cover" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-5">
+            <p class="font-display text-[9px] tracking-widest2 text-champagne uppercase mb-1">Collectible</p>
+            <h3 class="font-display text-base text-platinum leading-snug">Pure Silver<br/>Artefacts</h3>
+          </div>
+        </div>
+        <div class="border-t border-champagne/20 pt-4 mt-0">
+          <p class="text-xs text-muted font-body leading-relaxed">Museum-worthy sculptures &amp; idols forged in 999 fine silver.</p>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="cat-card group cursor-pointer reveal">
+        <div class="overflow-hidden relative">
+          <img src="images/cat-gifting.jpg"
+               alt="Executive and Wedding Gifting"
+               class="w-full h-72 object-cover" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-5">
+            <p class="font-display text-[9px] tracking-widest2 text-champagne uppercase mb-1">Gifting</p>
+            <h3 class="font-display text-base text-platinum leading-snug">Executive &amp;<br/>Wedding Gifts</h3>
+          </div>
+        </div>
+        <div class="border-t border-champagne/20 pt-4 mt-0">
+          <p class="text-xs text-muted font-body leading-relaxed">Bespoke silver gifts for weddings, milestones, and corporate honour.</p>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="cat-card group cursor-pointer reveal">
+        <div class="overflow-hidden relative">
+          <img src="images/cat-decor.jpg"
+               alt="Luxury Home Decor"
+               class="w-full h-72 object-cover" loading="lazy" />
+          <div class="absolute inset-0 bg-gradient-to-t from-charcoal/80 via-transparent to-transparent"></div>
+          <div class="absolute bottom-0 left-0 right-0 p-5">
+            <p class="font-display text-[9px] tracking-widest2 text-champagne uppercase mb-1">Interior</p>
+            <h3 class="font-display text-base text-platinum leading-snug">Luxury<br/>Home Décor</h3>
+          </div>
+        </div>
+        <div class="border-t border-champagne/20 pt-4 mt-0">
+          <p class="text-xs text-muted font-body leading-relaxed">Silver frames, trays, bowls &amp; objets d'art that define a room.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     TRUST / QUALITY BADGES
+════════════════════════════════════════ -->
+<section id="trust" class="bg-[#0a0a0a] py-16 md:py-22">
+  <div class="max-w-7xl mx-auto px-5 md:px-10">
+
+    <!-- Gold rule top -->
+    <div class="gold-rule mb-16 reveal"></div>
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6">
+
+      <!-- Badge 1 -->
+      <div class="badge-glass p-7 flex flex-col items-start gap-5 reveal">
+        <div class="w-10 h-10 border border-champagne/40 flex items-center justify-center">
+          <i data-lucide="shield-check" class="w-5 h-5 text-champagne"></i>
+        </div>
+        <div>
+          <h4 class="font-display text-sm text-platinum mb-2 leading-snug">100% Hallmarked<br/>Pure Silver</h4>
+          <p class="text-xs text-muted font-body leading-relaxed">BIS 999 certified — the highest purity standard. Every piece tested, stamped, and guaranteed.</p>
+        </div>
+      </div>
+
+      <!-- Badge 2 -->
+      <div class="badge-glass p-7 flex flex-col items-start gap-5 reveal">
+        <div class="w-10 h-10 border border-champagne/40 flex items-center justify-center">
+          <i data-lucide="award" class="w-5 h-5 text-champagne"></i>
+        </div>
+        <div>
+          <h4 class="font-display text-sm text-platinum mb-2 leading-snug">ISO Certified<br/>Quality</h4>
+          <p class="text-xs text-muted font-body leading-relaxed">International quality management systems ensuring consistent excellence across every order.</p>
+        </div>
+      </div>
+
+      <!-- Badge 3 -->
+      <div class="badge-glass p-7 flex flex-col items-start gap-5 reveal">
+        <div class="w-10 h-10 border border-champagne/40 flex items-center justify-center">
+          <i data-lucide="pen-tool" class="w-5 h-5 text-champagne"></i>
+        </div>
+        <div>
+          <h4 class="font-display text-sm text-platinum mb-2 leading-snug">Handcrafted<br/>Artisanship</h4>
+          <p class="text-xs text-muted font-body leading-relaxed">Master silversmiths with generational knowledge — no two pieces are ever identical.</p>
+        </div>
+      </div>
+
+      <!-- Badge 4 -->
+      <div class="badge-glass p-7 flex flex-col items-start gap-5 reveal">
+        <div class="w-10 h-10 border border-champagne/40 flex items-center justify-center">
+          <i data-lucide="globe" class="w-5 h-5 text-champagne"></i>
+        </div>
+        <div>
+          <h4 class="font-display text-sm text-platinum mb-2 leading-snug">Insured Worldwide<br/>Shipping</h4>
+          <p class="text-xs text-muted font-body leading-relaxed">Fully insured white-glove delivery to over 40 countries. Your silver arrives flawless.</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- Gold rule bottom -->
+    <div class="gold-rule mt-16 reveal"></div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     FEATURED COLLECTION / BEST SELLERS
+════════════════════════════════════════ -->
+<section id="collection" class="bg-charcoal py-20 md:py-28">
+  <div class="max-w-7xl mx-auto px-5 md:px-10">
+
+    <!-- Section header -->
+    <div class="text-center mb-14 reveal">
+      <p class="font-display text-[10px] tracking-widest3 text-champagne uppercase mb-4">House Signatures</p>
+      <h2 class="font-display text-3xl md:text-4xl text-platinum">Featured Collection</h2>
+      <div class="gold-rule w-16 mx-auto mt-6"></div>
+    </div>
+
+    <!-- Products grid -->
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 lg:gap-8">
+
+      <!-- Product 1 -->
+      <div class="product-card group reveal">
+        <div class="overflow-hidden relative bg-[#111] aspect-[4/5]">
+          <img src="images/prod-temple.jpg"
+               alt="Pure Silver Antique Temple"
+               class="w-full h-full object-cover" loading="lazy" />
+          <!-- Badges -->
+          <div class="absolute top-4 left-4 flex flex-col gap-2">
+            <span class="prod-badge bg-champagne text-charcoal px-2.5 py-1 font-body font-semibold">New Arrival</span>
+          </div>
+          <div class="absolute top-4 right-4">
+            <span class="prod-badge bg-charcoal/80 text-champagne border border-champagne/40 px-2.5 py-1 font-body font-medium backdrop-blur-sm">BIS 999</span>
+          </div>
+        </div>
+        <div class="pt-5 pb-1">
+          <p class="prod-badge text-muted font-body mb-1.5">Sacred Artefact</p>
+          <h3 class="font-display text-base text-platinum mb-1 leading-snug">Pure Silver Antique Temple</h3>
+          <p class="text-xs text-muted font-body leading-relaxed mb-4">Intricately repousse-crafted home temple with deity alcoves. Weighs approx. 1.2 kg pure silver.</p>
+          <div class="flex items-end justify-between">
+            <div>
+              <p class="text-xs text-muted font-body mb-0.5">Starting from</p>
+              <p class="font-display text-xl text-champagne">₹1,85,000</p>
+            </div>
+            <a href="https://wa.me/916291192742?text=Hello%2C%20I%27m%20interested%20in%20the%20Pure%20Silver%20Antique%20Temple.%20Please%20share%20details."
+               target="_blank" rel="noopener"
+               class="inline-flex items-center gap-2 bg-transparent border border-champagne/50 text-champagne text-[10px] tracking-widest uppercase font-body px-4 py-2.5 hover:bg-champagne hover:text-charcoal hover:border-champagne transition-all duration-300">
+              <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+              Inquire
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 2 -->
+      <div class="product-card group reveal">
+        <div class="overflow-hidden relative bg-[#111] aspect-[4/5]">
+          <img src="images/prod-drinkware.jpg"
+               alt="Royal Silver Drinkware Set"
+               class="w-full h-full object-cover" loading="lazy" />
+          <div class="absolute top-4 left-4 flex flex-col gap-2">
+            <span class="prod-badge bg-platinum text-charcoal px-2.5 py-1 font-body font-semibold">Best Seller</span>
+          </div>
+          <div class="absolute top-4 right-4">
+            <span class="prod-badge bg-charcoal/80 text-champagne border border-champagne/40 px-2.5 py-1 font-body font-medium backdrop-blur-sm">BIS 999</span>
+          </div>
+        </div>
+        <div class="pt-5 pb-1">
+          <p class="prod-badge text-muted font-body mb-1.5">Luxury Tableware</p>
+          <h3 class="font-display text-base text-platinum mb-1 leading-snug">Royal Silver Drinkware Set</h3>
+          <p class="text-xs text-muted font-body leading-relaxed mb-4">Six-piece hand-engraved tumbler set with serving tray — the centrepiece of any occasion.</p>
+          <div class="flex items-end justify-between">
+            <div>
+              <p class="text-xs text-muted font-body mb-0.5">Starting from</p>
+              <p class="font-display text-xl text-champagne">₹2,40,000</p>
+            </div>
+            <a href="https://wa.me/916291192742?text=Hello%2C%20I%27m%20interested%20in%20the%20Royal%20Silver%20Drinkware%20Set.%20Please%20share%20details."
+               target="_blank" rel="noopener"
+               class="inline-flex items-center gap-2 bg-transparent border border-champagne/50 text-champagne text-[10px] tracking-widest uppercase font-body px-4 py-2.5 hover:bg-champagne hover:text-charcoal hover:border-champagne transition-all duration-300">
+              <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+              Inquire
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 3 -->
+      <div class="product-card group reveal">
+        <div class="overflow-hidden relative bg-[#111] aspect-[4/5]">
+          <img src="images/prod-ganesha.jpg"
+               alt="Silver Ganesha Idol"
+               class="w-full h-full object-cover" loading="lazy" />
+          <div class="absolute top-4 left-4 flex flex-col gap-2">
+            <span class="prod-badge bg-champagne text-charcoal px-2.5 py-1 font-body font-semibold">Most Gifted</span>
+          </div>
+          <div class="absolute top-4 right-4">
+            <span class="prod-badge bg-charcoal/80 text-champagne border border-champagne/40 px-2.5 py-1 font-body font-medium backdrop-blur-sm">BIS 999</span>
+          </div>
+        </div>
+        <div class="pt-5 pb-1">
+          <p class="prod-badge text-muted font-body mb-1.5">Sacred Idol</p>
+          <h3 class="font-display text-base text-platinum mb-1 leading-snug">Silver Ganesha Idol</h3>
+          <p class="text-xs text-muted font-body leading-relaxed mb-4">Seated Ganesha in dancing posture, hand-cast and chased by Rajasthani master craftsmen.</p>
+          <div class="flex items-end justify-between">
+            <div>
+              <p class="text-xs text-muted font-body mb-0.5">Starting from</p>
+              <p class="font-display text-xl text-champagne">₹95,000</p>
+            </div>
+            <a href="https://wa.me/916291192742?text=Hello%2C%20I%27m%20interested%20in%20the%20Silver%20Ganesha%20Idol.%20Please%20share%20details."
+               target="_blank" rel="noopener"
+               class="inline-flex items-center gap-2 bg-transparent border border-champagne/50 text-champagne text-[10px] tracking-widest uppercase font-body px-4 py-2.5 hover:bg-champagne hover:text-charcoal hover:border-champagne transition-all duration-300">
+              <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+              Inquire
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Product 4 -->
+      <div class="product-card group reveal">
+        <div class="overflow-hidden relative bg-[#111] aspect-[4/5]">
+          <img src="images/prod-thali-set.jpg"
+               alt="Silver Pooja Thali Set"
+               class="w-full h-full object-cover" loading="lazy" />
+          <div class="absolute top-4 left-4 flex flex-col gap-2">
+            <span class="prod-badge bg-champagne text-charcoal px-2.5 py-1 font-body font-semibold">Limited Edition</span>
+          </div>
+          <div class="absolute top-4 right-4">
+            <span class="prod-badge bg-charcoal/80 text-champagne border border-champagne/40 px-2.5 py-1 font-body font-medium backdrop-blur-sm">BIS 999</span>
+          </div>
+        </div>
+        <div class="pt-5 pb-1">
+          <p class="prod-badge text-muted font-body mb-1.5">Sacred Ritual</p>
+          <h3 class="font-display text-base text-platinum mb-1 leading-snug">Silver Pooja Thali Set</h3>
+          <p class="text-xs text-muted font-body leading-relaxed mb-4">Complete 7-piece hand-engraved thali set with diya, kalash, and incense holder — heirloom quality.</p>
+          <div class="flex items-end justify-between">
+            <div>
+              <p class="text-xs text-muted font-body mb-0.5">Starting from</p>
+              <p class="font-display text-xl text-champagne">₹1,20,000</p>
+            </div>
+            <a href="https://wa.me/916291192742?text=Hello%2C%20I%27m%20interested%20in%20the%20Silver%20Pooja%20Thali%20Set.%20Please%20share%20details."
+               target="_blank" rel="noopener"
+               class="inline-flex items-center gap-2 bg-transparent border border-champagne/50 text-champagne text-[10px] tracking-widest uppercase font-body px-4 py-2.5 hover:bg-champagne hover:text-charcoal hover:border-champagne transition-all duration-300">
+              <i data-lucide="message-circle" class="w-3.5 h-3.5"></i>
+              Inquire
+            </a>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- View all CTA -->
+    <div class="text-center mt-14 reveal">
+      <a href="https://wa.me/916291192742?text=Hello%2C%20I%27d%20like%20to%20view%20your%20full%20silver%20catalogue."
+         target="_blank" rel="noopener"
+         class="inline-flex items-center gap-3 border border-champagne/50 text-champagne font-display text-xs tracking-widest uppercase px-10 py-4 hover:bg-champagne hover:text-charcoal transition-all duration-300">
+        <i data-lucide="layers" class="w-4 h-4"></i>
+        View Full Catalogue
+      </a>
+    </div>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     VIP CONSULTATION BANNER
+════════════════════════════════════════ -->
+<section id="consult" class="consult-bg py-20 md:py-28">
+  <div class="max-w-5xl mx-auto px-6 md:px-12 text-center reveal">
+
+    <!-- Icon -->
+    <div class="inline-flex items-center justify-center w-14 h-14 border border-champagne/40 mb-8">
+      <i data-lucide="video" class="w-6 h-6 text-champagne"></i>
+    </div>
+
+    <!-- Eyebrow -->
+    <p class="font-display text-[10px] tracking-widest3 text-champagne uppercase mb-5">Exclusive to Maharani Patrons</p>
+
+    <!-- Headline -->
+    <h2 class="font-display text-3xl md:text-5xl text-platinum leading-tight mb-6">
+      Your Private Silver<br/>
+      <span class="text-champagne">Consultation</span>
+    </h2>
+
+    <!-- Rule -->
+    <div class="gold-rule w-20 mx-auto mb-8"></div>
+
+    <!-- Body -->
+    <p class="font-body font-light text-silver text-sm md:text-base leading-relaxed max-w-2xl mx-auto mb-10">
+      We offer one-on-one virtual walkthroughs of our complete atelier — curate a custom commission, select 
+      from our private inventory, or design a bespoke wedding trousseau. Our experts guide you through every 
+      detail, from silver grade to finish and packaging.
+    </p>
+
+    <!-- Perks row -->
+    <div class="flex flex-wrap justify-center gap-6 mb-12">
+      <div class="flex items-center gap-2.5 text-xs text-silver font-body">
+        <i data-lucide="check-circle" class="w-4 h-4 text-champagne flex-shrink-0"></i>
+        Live Video Walkthrough
+      </div>
+      <div class="flex items-center gap-2.5 text-xs text-silver font-body">
+        <i data-lucide="check-circle" class="w-4 h-4 text-champagne flex-shrink-0"></i>
+        Custom Order Design
+      </div>
+      <div class="flex items-center gap-2.5 text-xs text-silver font-body">
+        <i data-lucide="check-circle" class="w-4 h-4 text-champagne flex-shrink-0"></i>
+        Weight &amp; Price Transparency
+      </div>
+      <div class="flex items-center gap-2.5 text-xs text-silver font-body">
+        <i data-lucide="check-circle" class="w-4 h-4 text-champagne flex-shrink-0"></i>
+        No Commitment Required
+      </div>
+    </div>
+
+    <!-- CTA -->
+    <a href="https://wa.me/916291192742?text=Hello%2C%20I%27d%20like%20to%20book%20a%20private%20silver%20consultation%20with%20Maharani%20by%20Rungta%27s."
+       target="_blank" rel="noopener"
+       class="inline-flex items-center gap-3 bg-champagne text-charcoal font-display text-xs tracking-widest uppercase px-10 py-4 hover:bg-champagneL transition-colors duration-300">
+      <i data-lucide="calendar" class="w-4 h-4"></i>
+      Book Your Session on WhatsApp
+    </a>
+
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════
+     BRAND STATEMENT / MARQUEE
+════════════════════════════════════════ -->
+<div class="bg-[#0a0a0a] py-10 border-y border-champagne/10">
+  <div class="marquee-wrap">
+    <div class="marquee-track" style="animation-duration:40s;">
+      <span class="inline-flex items-center gap-10 pr-10">
+        <span class="font-display text-xs tracking-widest2 text-champagne/50 uppercase">Rungta's Legacy Since 1965</span>
+        <span class="text-champagne/20">✦</span>
+        <span class="font-display text-xs tracking-widest2 text-champagne/50 uppercase">999 Fine Silver</span>
+        <span class="text-champagne/20">✦</span>
+        <span class="font-display text-xs tracking-widest2 text-champagne/50 uppercase">Crafted by Master Silversmiths</span>
+        <span class="text-champagne/20">✦</span>
+        <span class="font-display text-xs tracking-widest2 text-champagne/50 uppercase">Trusted by 10,000+ Families</span>
+        <span class="text-champagne/20">✦</span>
+        <span class="font-display text-xs tracking-widest2 text-champagne/50 uppercase">Shipped to 40+ Nations</span>
+        <span class="text-champagne/20">✦</span>
+        <span class="font-display text-xs tracking-widest2 text-champagne/50 uppercase">Heirlooms That Outlive Trends</span>
+        <span class="text-champagne/20 pr-10">✦</span>
+      </span>
+      <span class="inline-flex items-center gap-10 pr-10">
+        <span class="font-display text-xs tracking-widest2 text-champagne/50 uppercase">Rungta's Legacy Since 1965</span>
+        <span class="text-champagne/20">✦</span>
+        <span class="font-display text-xs tracking-widest2 text-champagne/50 uppercase">999 Fine Silver</span>
+        <span class="text-champagne/20">✦</span>
+        <span class="font-display text-xs tracking-widest2 text-champagne/50 uppercase">Crafted by Master Silversmiths</span>
+        <span class="text-champagne/20">✦</span>
+        <span class="font-display text-xs tracking-widest2 text-champagne/50 uppercase">Trusted by 10,000+ Families</span>
+        <span class="text-champagne/20">✦</span>
+        <span class="font-display text-xs tracking-widest2 text-champagne/50 uppercase">Shipped to 40+ Nations</span>
+        <span class="text-champagne/20">✦</span>
+        <span class="font-display text-xs tracking-widest2 text-champagne/50 uppercase">Heirlooms That Outlive Trends</span>
+        <span class="text-champagne/20 pr-10">✦</span>
+      </span>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════════
+     FOOTER
+════════════════════════════════════════ -->
+<footer class="bg-charcoal border-t border-champagne/10 pt-16 pb-10">
+  <div class="max-w-7xl mx-auto px-5 md:px-10">
+
+    <!-- Top footer grid -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12 mb-14">
+
+      <!-- Brand -->
+      <div>
+        <div class="mb-6">
+          <span class="font-display text-2xl tracking-widest2 text-platinum block">MAHARANI</span>
+          <span class="text-[9px] tracking-widest3 text-champagne font-body uppercase">by Rungta's</span>
+        </div>
+        <p class="text-xs text-muted font-body leading-relaxed max-w-xs mb-6">
+          India's foremost pure silver atelier — curating hallmarked silver artefacts, sacred articles, 
+          and luxury gifts since 1965.
+        </p>
+        <!-- Social -->
+        <a href="https://instagram.com" target="_blank" rel="noopener"
+           class="inline-flex items-center gap-2.5 text-xs text-silver hover:text-champagne transition-colors font-body">
+          <i data-lucide="instagram" class="w-4 h-4"></i>
+          @maharanibyrungtas
+        </a>
+      </div>
+
+      <!-- Links -->
+      <div>
+        <h5 class="font-display text-[10px] tracking-widest2 text-champagne uppercase mb-6">Navigate</h5>
+        <ul class="space-y-3">
+          <li><a href="#categories" class="text-xs text-muted hover:text-platinum transition-colors font-body">Collections</a></li>
+          <li><a href="#trust" class="text-xs text-muted hover:text-platinum transition-colors font-body">Our Legacy</a></li>
+          <li><a href="#collection" class="text-xs text-muted hover:text-platinum transition-colors font-body">Featured Pieces</a></li>
+          <li><a href="#consult" class="text-xs text-muted hover:text-platinum transition-colors font-body">Private Consultation</a></li>
+          <li>
+            <a href="https://wa.me/916291192742?text=Hello%2C%20I%27d%20like%20to%20inquire%20about%20a%20custom%20silver%20order."
+               target="_blank" rel="noopener"
+               class="text-xs text-muted hover:text-platinum transition-colors font-body">Custom &amp; Corporate Orders</a>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Contact -->
+      <div>
+        <h5 class="font-display text-[10px] tracking-widest2 text-champagne uppercase mb-6">Reach Us</h5>
+        <ul class="space-y-4">
+          <li class="flex items-start gap-3">
+            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-champagne mt-0.5 flex-shrink-0"></i>
+            <span class="text-xs text-muted font-body leading-relaxed">Silver Atelier, Jewellers' Lane,<br/>Kolkata — 700 007, West Bengal, India</span>
+          </li>
+          <li class="flex items-center gap-3">
+            <i data-lucide="phone" class="w-3.5 h-3.5 text-champagne flex-shrink-0"></i>
+            <a href="tel:+916291192742" class="text-xs text-muted hover:text-platinum transition-colors font-body">+91 62911 92742</a>
+          </li>
+          <li class="flex items-center gap-3">
+            <i data-lucide="mail" class="w-3.5 h-3.5 text-champagne flex-shrink-0"></i>
+            <a href="mailto:hello@maharanibyrungtas.com" class="text-xs text-muted hover:text-platinum transition-colors font-body">hello@maharanibyrungtas.com</a>
+          </li>
+          <li class="flex items-center gap-3">
+            <i data-lucide="clock" class="w-3.5 h-3.5 text-champagne flex-shrink-0"></i>
+            <span class="text-xs text-muted font-body">Mon – Sat, 10:00 AM – 7:30 PM IST</span>
+          </li>
+        </ul>
+      </div>
+
+    </div>
+
+    <!-- Bottom bar -->
+    <div class="gold-rule mb-8"></div>
+    <div class="flex flex-col md:flex-row items-center justify-between gap-4">
+      <p class="text-[10px] text-muted font-body tracking-wide text-center md:text-left">
+        © 2025 Maharani by Rungta's. All rights reserved. Hallmarked 999 Pure Silver.
+      </p>
+      <p class="text-[10px] text-muted/50 font-body tracking-wide">
+        Crafted with reverence in India ✦
+      </p>
+    </div>
+
+  </div>
+</footer>
+
+<!-- ════════════════════════════════════════
+     FLOATING WHATSAPP BUTTON
+════════════════════════════════════════ -->
+<a href="https://wa.me/916291192742?text=Hello%2C%20I%27d%20like%20to%20know%20more%20about%20Maharani%20by%20Rungta%27s%20silver%20collections."
+   target="_blank" rel="noopener"
+   class="wa-float"
+   aria-label="Chat with us on WhatsApp">
+  <!-- WhatsApp SVG icon -->
+  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="white" width="28" height="28">
+    <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z"/>
+  </svg>
+</a>
+
+<!-- ════════════════════════════════════════
+     SCRIPTS
+════════════════════════════════════════ -->
+<script>
+  // Init Lucide icons
+  lucide.createIcons();
+
+  // ── Mobile menu toggle ──
+  const menuBtn  = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuIcon = document.getElementById('menu-icon');
+  let menuOpen = false;
+
+  menuBtn.addEventListener('click', () => {
+    menuOpen = !menuOpen;
+    mobileMenu.classList.toggle('open', menuOpen);
+    // swap icon
+    menuIcon.setAttribute('data-lucide', menuOpen ? 'x' : 'menu');
+    lucide.createIcons();
+  });
+
+  function closeMobile() {
+    menuOpen = false;
+    mobileMenu.classList.remove('open');
+    menuIcon.setAttribute('data-lucide', 'menu');
+    lucide.createIcons();
+  }
+
+  // ── Scroll reveal ──
+  const revealEls = document.querySelectorAll('.reveal');
+  const revealObserver = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        // Slight stagger for sibling cards
+        const delay = (entry.target.closest('.grid') ? Array.from(entry.target.closest('.grid').children).indexOf(entry.target) * 80 : 0);
+        setTimeout(() => { entry.target.classList.add('visible'); }, delay);
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  revealEls.forEach(el => revealObserver.observe(el));
+
+  // ── Nav shrink on scroll ──
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 60) {
+      nav.style.setProperty('--nav-py', '0.75rem');
+    } else {
+      nav.style.removeProperty('--nav-py');
+    }
+  }, { passive: true });
+
+  // ── Reinit icons after any DOM mutation ──
+  setTimeout(() => lucide.createIcons(), 200);
+</script>
+
+</body>
+</html>
